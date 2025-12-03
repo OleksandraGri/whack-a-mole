@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import StartPage from './pages/StartPage';
 import GamePage from './pages/GamePage';
 import ResultsPage from './pages/ResultsPage';
+import { useWhackAMoleGame } from './hooks/useWhackAMoleGame';
 
 // Плейсхолдери для базових станів
 const GAME_STAGES = {
@@ -11,47 +12,38 @@ const GAME_STAGES = {
 };
 
 function App() {
-    // Базовий стан для управління поточною сторінкою/етапом гри
-    const [currentStage, setCurrentStage] = useState(GAME_STAGES.START);
+    // Викликаємо кастомний хук, отримуючи весь стан і керуючі функції
+    const {
+        stage,
+        score,
+        timeLeft,
+        activeMoleIndex,
+        HOLE_COUNT,
+        startGame,
+        whackMole,
+        restartGame,
+        GAME_STAGES,
+    } = useWhackAMoleGame();
 
-    // Плейсхолдери для майбутньої бізнес-логіки
-    const [score, setScore] = useState(0);
-    const [time, setTime] = useState(60);
-
-    // Функції для переходу між сторінками
-    const handleStartGame = () => {
-        // Тут буде логіка ініціалізації гри
-        setScore(0);
-        setTime(60);
-        setCurrentStage(GAME_STAGES.GAME);
-    };
-
-    const handleGameOver = () => {
-        // Тут буде логіка завершення гри
-        setCurrentStage(GAME_STAGES.RESULTS);
-    };
-
-    const handleRestartGame = () => {
-        setCurrentStage(GAME_STAGES.START);
-    };
-
-    // Логіка відображення поточної сторінки
     const renderStage = () => {
-        switch (currentStage) {
+        switch (stage) {
             case GAME_STAGES.START:
-                return <StartPage onStartGame={handleStartGame} />;
+                return <StartPage onStartGame={startGame} />;
             case GAME_STAGES.GAME:
+                // Передаємо необхідні дані та функції на сторінку гри
                 return (
                     <GamePage
                         score={score}
-                        time={time}
-                        onGameOver={handleGameOver}
+                        timeLeft={timeLeft}
+                        activeMoleIndex={activeMoleIndex}
+                        HOLE_COUNT={HOLE_COUNT}
+                        onWhack={whackMole}
                     />
                 );
             case GAME_STAGES.RESULTS:
-                return <ResultsPage finalScore={score} onRestartGame={handleRestartGame} />;
+                return <ResultsPage finalScore={score} onRestartGame={restartGame} />;
             default:
-                return <StartPage onStartGame={handleStartGame} />;
+                return <StartPage onStartGame={startGame} />;
         }
     };
 
