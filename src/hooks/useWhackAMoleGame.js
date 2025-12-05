@@ -11,12 +11,12 @@ const GAME_STAGES = {
     RESULTS: 'results',
 };
 
-export const useWhackAMoleGame = () => {
+export const useWhackAMoleGame = (settings) => {
+    const { gameTime, holeCount, moleInterval } = settings;
     // 1. Стан програми
     const [stage, setStage] = useState(GAME_STAGES.START);
     const [score, setScore] = useState(0);
-    const [timeLeft, setTimeLeft] = useState(INITIAL_TIME);
-    // Індекс отвору, де кріт зараз вискочив
+    const [timeLeft, setTimeLeft] = useState(gameTime);
     const [activeMoleIndex, setActiveMoleIndex] = useState(null);
 
     // 2. Функції управління (використовую useCallback для оптимізації)
@@ -27,7 +27,7 @@ export const useWhackAMoleGame = () => {
 
     const startGame = () => {
         setScore(0);
-        setTimeLeft(INITIAL_TIME);
+        setTimeLeft(gameTime); // Скидаю час відповідно до налаштувань
         setActiveMoleIndex(null);
         setStage(GAME_STAGES.GAME);
     };
@@ -57,44 +57,43 @@ export const useWhackAMoleGame = () => {
         if (stage !== GAME_STAGES.GAME) return;
 
         const spawnMole = () => {
-            // Випадково обираю новий індекс отвору (від 0 до 8)
-            const randomIndex = Math.floor(Math.random() * HOLE_COUNT);
+            setActiveMoleIndex(null);
+
+            const randomIndex = Math.floor(Math.random() * holeCount);
             setActiveMoleIndex(randomIndex);
 
-            // Кріт зникає через короткий час
+            // Інтервал зникнення залежить від швидкості
             const hideTimeout = setTimeout(() => {
-                // Прибираю крота, якщо його не вдарили
                 setActiveMoleIndex(null);
-            }, 800);
+            }, moleInterval * 0.8);
 
             return () => clearTimeout(hideTimeout);
         };
 
-        // Інтервал, який викликає функцію спауну
-        const spawnInterval = setInterval(spawnMole, MOLE_SPAWN_INTERVAL);
+        // Інтервал спауну залежить від швидкості
+        const spawnInterval = setInterval(spawnMole, moleInterval);
 
         return () => clearInterval(spawnInterval);
-    }, [stage]);
+    }, [stage, holeCount, moleInterval]);
 
     // 5. Логіка Удару (Whack)
     const whackMole = useCallback((holeIndex) => {
-        // Перевіряємо, чи був успішний удар
         if (holeIndex === activeMoleIndex) {
             setScore(prevScore => prevScore + 1);
-            setActiveMoleIndex(null); // Кріт зникає після удару
+            setActiveMoleIndex(null);
         }
-    }, [activeMoleIndex]); // Залежить від поточного активного крота
+    }, [activeMoleIndex]);
 
-    // Повертаю всі стани та функції, необхідні для роботи компонентів
     return {
         score,
         timeLeft,
         activeMoleIndex,
-        HOLE_COUNT,
+        HOLE_COUNT: holeCount,
         stage,
         startGame,
         whackMole,
         restartGame,
+        endGame,
         GAME_STAGES
     };
 };
