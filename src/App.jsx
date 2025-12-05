@@ -43,8 +43,8 @@ const AppContent = () => {
             <main className="main-content">
                 <Routes>
                     <Route path="/" element={<StartPage />} />
-                    <Route path="/game" element={<GamePage onGameOver={endGame} />} />
-                    <Route path="/results" element={<ResultsPage finalScore={score} onRestartGame={restartGame} />} />
+                    <Route path="/game" element={<GamePage />} />
+                    <Route path="/results" element={<ResultsPage />} />
                     <Route path="/settings" element={<SettingsPage />} />
                     <Route path="/user/:userId" element={<ProfilePage />} />
                     <Route path="*" element={<h1>404 | Сторінка не знайдена</h1>} />

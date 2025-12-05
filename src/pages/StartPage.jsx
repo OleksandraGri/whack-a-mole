@@ -1,13 +1,22 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import { useGame } from '../context/GameContext';
 
-const StartPage = ({ onStartGame, onOpenSettings }) => {
+const StartPage = () => {
+    const navigate = useNavigate();
+    const { startGame } = useGame();
+
+    const handleStart = () => {
+        startGame();
+        navigate('/game');
+    };
+
     return (
-        <div style={{ textAlign: 'center', padding: '50px' }}>
+        <div className="page-center">
             <h1>🎯 Удар по Кроту 🎯</h1>
             <p>Ласкаво просимо! Ваше завдання — встигнути вдарити крота, поки він не зник.</p>
-            <Button onClick={onStartGame}>Почати Гру</Button>
-            <Button onClick={onOpenSettings} style={{ backgroundColor: '#2196F3' }}>Налаштування</Button>
+            <Button onClick={handleStart}>Почати Гру</Button>
         </div>
     );
 };
