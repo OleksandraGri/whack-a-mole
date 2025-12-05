@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import { GameProvider, useGame } from './context/GameContext';
-import StartPage from './pages/StartPage';
-import GamePage from './pages/GamePage';
-import ResultsPage from './pages/ResultsPage';
-import SettingsPage from './pages/SettingsPage';
-import ProfilePage from './pages/ProfilePage';
-import Modal from './components/Modal';
+import { GameProvider, useGame } from './context/GameContext.jsx';
+import StartPage from './pages/StartPage.jsx';
+import GamePage from './pages/GamePage.jsx';
+import ResultsPage from './pages/ResultsPage.jsx';
+import SettingsPage from './pages/SettingsPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
+import Modal from './components/Modal.jsx';
 import './App.css';
 
 const AppContent = () => {
