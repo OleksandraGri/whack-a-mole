@@ -25,7 +25,7 @@ const SettingsPage = ({ onGoBack }) => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <h2>⚙️ Налаштування Гри</h2>
+            <h2>Налаштування Гри</h2>
             <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
 
                 {/* 1. Час гри */}
