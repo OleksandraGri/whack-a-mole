@@ -1,21 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { GameProvider, useGame } from './context/GameContext';
+import useGameStore from './store/useGameStore';
 import StartPage from './pages/StartPage';
 import GamePage from './pages/GamePage';
 import ResultsPage from './pages/ResultsPage';
 import SettingsPage from './pages/SettingsPage';
+import ResultsTablePage from './pages/ResultsTablePage';
 import ProfilePage from './pages/ProfilePage';
 import Modal from './components/Modal';
 import './App.css';
 
 const AppContent = () => {
     const { stage, score, startGame, restartGame, GAME_STAGES, endGame } = useGame();
+    const addResult = useGameStore((state) => state.addResult);
 
     const [showModal, setShowModal] = React.useState(false);
 
     React.useEffect(() => {
         if (stage === GAME_STAGES.RESULTS) {
+            addResult(score);
             setShowModal(true);
         } else {
             setShowModal(false);
@@ -37,6 +41,7 @@ const AppContent = () => {
                 <Link to="/">Головна</Link>
                 <Link to="/user/42">Профіль користувача</Link>
                 <Link to="/settings">Налаштування</Link>
+                <Link to="/results-table">Таблиця результатів</Link>
                 {stage === GAME_STAGES.GAME && <span className="game-status">Гра триває...</span>}
             </nav>
 
@@ -46,6 +51,7 @@ const AppContent = () => {
                     <Route path="/game" element={<GamePage onGameOver={endGame} />} />
                     <Route path="/results" element={<ResultsPage finalScore={score} onRestartGame={restartGame} />} />
                     <Route path="/settings" element={<SettingsPage />} />
+                    <Route path="/results-table" element={<ResultsTablePage />} />
                     <Route path="/user/:userId" element={<ProfilePage />} />
                     <Route path="*" element={<h1>404 | Сторінка не знайдена</h1>} />
                 </Routes>

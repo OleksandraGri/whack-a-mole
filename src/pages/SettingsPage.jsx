@@ -1,12 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { settingsSchema, defaultSettings } from '../config/validationSchema';
-import { useGame } from '../context/GameContext';
+import { useNavigate } from 'react-router-dom';
+import { settingsSchema } from '../config/validationSchema';
+import useGameStore from '../store/useGameStore';
 import Button from '../components/Button';
 
-const SettingsPage = ({ onGoBack }) => {
-    const { settings, updateSettings } = useGame();
+
+const SettingsPage = () => {
+    const { settings, updateSettings } = useGameStore();
+    const navigate = useNavigate();
 
     // Ініціалізація форми з валідацією
     const {
@@ -20,7 +23,7 @@ const SettingsPage = ({ onGoBack }) => {
 
     const onSubmit = (data) => {
         updateSettings(data);
-        onGoBack();
+        navigate(-1);
     };
 
     return (
@@ -50,7 +53,7 @@ const SettingsPage = ({ onGoBack }) => {
                 </div>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
-                    <Button onClick={onGoBack} type="button" style={{ backgroundColor: '#ccc' }}>Назад</Button>
+                    <Button onClick={() => navigate(-1)} type="button" style={{ backgroundColor: '#ccc' }}>Назад</Button>
                     <Button type="submit">Зберегти та вийти</Button>
                 </div>
             </form>
