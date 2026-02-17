@@ -9,6 +9,7 @@ import SettingsPage from './pages/SettingsPage';
 import ResultsTablePage from './pages/ResultsTablePage';
 import ProfilePage from './pages/ProfilePage';
 import Modal from './components/Modal';
+import CookieConsent from 'react-cookie-consent';
 import './App.css';
 
 const AppContent = () => {
@@ -64,6 +65,16 @@ const AppContent = () => {
                     onRestartSame={handleRestart.bind(null, false)}
                 />
             )}
+
+            <CookieConsent
+                location="bottom"
+                buttonText="Прийняти"
+                cookieName="moleGameCookie"
+                style={{ background: '#2B373B' }}
+                buttonStyle={{ color: '#4e503b', fontSize: '13px', borderRadius: '5px' }}
+            >
+                Цей сайт використовує localStorage для збереження ваших ігрових результатів.
+            </CookieConsent>
         </div>
     );
 };

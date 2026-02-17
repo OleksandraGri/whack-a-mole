@@ -1,5 +1,13 @@
 import React from 'react';
 
+/**
+ * Компонент лунки крота.
+ * Відображає або порожню лунку, або крота, по якому можна вдарити.
+ * 
+ * @param {Object} props - Властивості компонента
+ * @param {boolean} props.isMoleUp - Чи виліз кріт із цієї лунки (true/false)
+ * @param {function} props.onWhack - Функція, що викликається при кліку на крота
+ */
 const MoleHole = ({ isMoleUp, onWhack }) => {
     const moleStyle = {
         width: '80px',
