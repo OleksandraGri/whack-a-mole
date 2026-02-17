@@ -58,3 +58,4 @@ src/
 ## Ліцензія
 
 Цей проект розповсюджується під ліцензією MIT — дивіться файл [LICENSE](./LICENSE) для деталей.
+Відео [Video](https://www.loom.com/share/11c664261eef4a0a910fd3490aa90f8b)
