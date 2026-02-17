@@ -1,16 +1,60 @@
-# React + Vite
+# Whack-a-Mole Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Браузерна гра «Удар по кроту», зроблена на React. Крот випадково з'являється в одному з отворів — треба встигнути по ньому клікнути, поки він не зник. Є налаштування складності, таблиця результатів і збереження даних у localStorage.
 
-Currently, two official plugins are available:
+## Можливості
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Ігрове поле з налаштуванням кількості отворів (9, 12 або 16)
+- Регульований час гри та швидкість появи крота
+- Таблиця найкращих результатів (топ-10)
+- Збереження налаштувань та результатів у localStorage
+- Валідація форми налаштувань (Yup + React Hook Form)
+- Стейт-менеджмент через Zustand
+- Cookie-банер для відповідності GDPR
+- Storybook для демонстрації компонентів
 
-## React Compiler
+## Встановлення та запуск
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+# Встановити залежності
+npm install
 
-## Expanding the ESLint configuration
+# Запустити в режимі розробки
+npm run dev
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Запустити Storybook
+npm run storybook
+
+# Зібрати продакшн-версію
+npm run build
+```
+
+## Структура проекту
+
+```
+src/
+├── components/      # Компоненти (Button, MoleHole, Modal)
+├── config/          # Схема валідації (Yup)
+├── context/         # GameContext (провайдер логіки гри)
+├── hooks/           # useWhackAMoleGame (ігрова логіка)
+├── pages/           # Сторінки (Start, Game, Settings, Results, Profile)
+├── store/           # Zustand store (налаштування + результати)
+└── stories/         # Storybook stories
+```
+
+## Технології
+
+- React 19
+- Vite
+- Zustand (стейт-менеджмент)
+- React Hook Form + Yup (валідація)
+- React Router DOM (маршрутизація)
+- Storybook (документація компонентів)
+
+## Автор
+
+**Грі Олександра**
+
+## Ліцензія
+
+Цей проект розповсюджується під ліцензією MIT — дивіться файл [LICENSE](./LICENSE) для деталей.

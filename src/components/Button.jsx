@@ -1,5 +1,14 @@
 import React from 'react';
 
+/**
+ * Базовий компонент кнопки.
+ * Використовується для всіх дій користувача в грі.
+ *
+ * @param {Object} props - Властивості компонента
+ * @param {React.ReactNode} props.children - Вміст кнопки
+ * @param {function} props.onClick - Функція обробки кліку
+ * @param {boolean} [props.disabled] - Чи заблокована кнопка
+ */
 const Button = ({ children, onClick, disabled }) => {
     return (
         <button
