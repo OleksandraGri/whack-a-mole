@@ -1,23 +1,18 @@
 import React from 'react';
 import MoleHole from '../components/MoleHole';
 
-// Приймає функцію для завершення гри та базові стани
-const GamePage = ({ score, time, onGameOver }) => {
-    // Плейсхолдер для 9 отворів. У майбутньому це буде масив стану.
-    const holes = Array(9).fill(false);
-    holes[4] = true; // Для прикладу, кріт вискочив в 5-му отворі
+// Чистий компонент, який приймає дані та функцію onWhack через пропси
+const GamePage = ({ score, timeLeft, activeMoleIndex, HOLE_COUNT, onWhack }) => {
 
-    const handleWhack = (index) => {
-        console.log(`Удар по кроту в отворі ${index + 1}!`);
-        // Тут буде логіка нарахування очок
-    };
+    // Створюю масив з потрібною кількістю отворів
+    const holes = Array(HOLE_COUNT).fill(null);
 
     return (
         <div style={{ textAlign: 'center', padding: '20px' }}>
-            <h2>🕹️ Гра триває 🕹️</h2>
-            <div style={{ display: 'flex', justifyContent: 'space-around', margin: '20px 0' }}>
-                <h3>Очки: {score} (плейсхолдер)</h3>
-                <h3>Час: {time} сек (плейсхолдер)</h3>
+            <h2>🕹️ ГРА ТРИВАЄ 🕹️</h2>
+            <div style={{ display: 'flex', justifyContent: 'space-around', margin: '20px 0', border: '1px solid #eee', padding: '10px', borderRadius: '5px' }}>
+                <h3>Очки: <span style={{ color: 'green', fontWeight: 'bold' }}>{score}</span></h3>
+                <h3>Залишилось: <span style={{ color: timeLeft <= 5 ? 'red' : 'blue', fontWeight: 'bold' }}>{timeLeft}</span> сек</h3>
             </div>
 
             {/* Ігрове поле (Grid) */}
@@ -26,20 +21,21 @@ const GamePage = ({ score, time, onGameOver }) => {
                 gridTemplateColumns: 'repeat(3, 1fr)',
                 gap: '10px',
                 maxWidth: '350px',
-                margin: '0 auto'
+                margin: '20px auto',
+                padding: '10px',
+                backgroundColor: '#6b4f4f',
+                borderRadius: '10px',
             }}>
-                {holes.map((isUp, index) => (
+                {holes.map((_, index) => (
                     <MoleHole
                         key={index}
-                        isMoleUp={isUp}
-                        onWhack={() => handleWhack(index)}
+                        // Кріт активний, якщо його індекс дорівнює активному індексу з хука
+                        isMoleUp={index === activeMoleIndex}
+                        // При натисканні викликаємо функцію удару з індексом отвору
+                        onWhack={() => onWhack(index)}
                     />
                 ))}
             </div>
-
-            <button onClick={onGameOver} style={{ marginTop: '20px' }}>
-                Завершити Гру (Тест)
-            </button>
         </div>
     );
 };

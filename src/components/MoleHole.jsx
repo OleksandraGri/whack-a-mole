@@ -6,14 +6,14 @@ const MoleHole = ({ isMoleUp, onWhack }) => {
         height: '80px',
         borderRadius: '50%',
         backgroundColor: isMoleUp ? '#8B4513' : 'transparent',
-        transition: 'background-color 0.3s',
-        cursor: isMoleUp ? 'pointer' : 'default',
+        transition: 'transform 0.15s ease-out',
         textAlign: 'center',
         lineHeight: '80px',
         color: 'white',
-        fontSize: '20px',
+        fontSize: '30px',
         position: 'relative',
-        top: isMoleUp ? '0' : '20px',
+        // Динамічний рух: 0px якщо піднятий, 100% (схований) якщо опущений
+        transform: isMoleUp ? 'translateY(0)' : 'translateY(100%)',
     };
 
     const holeStyle = {
@@ -23,15 +23,17 @@ const MoleHole = ({ isMoleUp, onWhack }) => {
         borderRadius: '50%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'flex-start',
+        alignItems: 'flex-end',
         overflow: 'hidden',
-        margin: '10px',
+        cursor: isMoleUp ? 'pointer' : 'default',
+        margin: 'auto',
     };
 
     return (
+        // Обробник натискання: спрацює лише, якщо isMoleUp === true
         <div className="mole-hole" style={holeStyle} onClick={isMoleUp ? onWhack : null}>
             <div className="mole" style={moleStyle}>
-                {isMoleUp ? 'Кріт' : '...'}
+                {isMoleUp ? '🐻' : ''}
             </div>
         </div>
     );

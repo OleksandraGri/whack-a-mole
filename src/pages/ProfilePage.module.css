@@ -1,0 +1,24 @@
+.profileContainer {
+    text-align: center;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.profileHeader {
+    color: #3f51b5;
+    margin-bottom: 20px;
+}
+
+.profileInfo {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.userId {
+    font-weight: bold;
+    color: #ff9800;
+    font-size: 1.2em;
+}
